@@ -17,6 +17,7 @@ namespace PetShop
         public void Menu()
         {
             bool FimExecucaoMenu = true;
+           
 
             do
             {
@@ -39,35 +40,38 @@ namespace PetShop
 
                 switch (opcaoMenuPrincipal)
                 {
+
                     case 1:
 
                         Console.Clear();
-                        Console.WriteLine("#**************************************#");                     
-                        Console.WriteLine("# ------------- Clientes ------------- #");
-                        Console.WriteLine("#**************************************#");
-                        Console.WriteLine(" 1 - Incluir Cliente ");
-                        Console.WriteLine(" 2 - Alterar Cliente ");                  
-                        Console.WriteLine(" 3 - Excluir Cliente ");
-                        Console.WriteLine(" 4 - Voltar ao menu principal ");
-                        Console.WriteLine("#**************************************#");
-                        Console.WriteLine(Environment.NewLine);
-                        Console.Write("Digite sua opção: ");
 
-                        int opcaoMenuCliente = int.Parse(Console.ReadLine());
-
-                        while (opcaoMenuCliente != 4)
+                        do
                         {
+                            Console.Clear();
+                            Console.WriteLine("#**************************************#");
+                            Console.WriteLine("# ------------- Clientes ------------- #");
+                            Console.WriteLine("#**************************************#");
+                            Console.WriteLine(" 1 - Incluir Cliente ");
+                            Console.WriteLine(" 2 - Alterar Cliente ");
+                            Console.WriteLine(" 3 - Excluir Cliente ");
+                            Console.WriteLine(" 4 - Voltar ao menu principal ");
+                            Console.WriteLine("#**************************************#");
+                            Console.WriteLine(Environment.NewLine);
+                            Console.Write("Digite sua opção: ");
+
+                            int opcaoMenuCliente = int.Parse(Console.ReadLine());
 
                             switch (opcaoMenuCliente)
                             {
                                 case 1:
                                     Console.Clear();
                                     AdcionarCliente();
+                                    
                                     break;
 
                                 case 2:
                                     Console.Clear();
-                                    break;                              
+                                    break;
 
                                 case 3:
                                     Console.Clear();
@@ -75,7 +79,7 @@ namespace PetShop
 
                                 case 4:
                                     //Console.Clear();
-                                    opcaoMenuCliente = 4;
+                                    FimExecucaoMenu = true;
                                     //FimExecucaoMenu = false;
 
                                     break;
@@ -87,6 +91,7 @@ namespace PetShop
                             }
 
                         }
+                        while (FimExecucaoMenu);
                         break;
 
                     case 2:
@@ -135,10 +140,19 @@ namespace PetShop
         {
             var clientes = new List<Cliente>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Console.WriteLine("Informe o nome do Cliente: ");
                 string nomeCliente = Console.ReadLine();
+
+                bool nomeClienteValido = Validacoes.ValidaNome(nomeCliente);
+
+                if (!nomeClienteValido)
+                {
+
+                    break;
+                }
+                    
 
                 Console.WriteLine("Informe o CPF: ");
                 long cpfCliente = Convert.ToInt64(Console.ReadLine());
