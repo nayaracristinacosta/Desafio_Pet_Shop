@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,7 +62,7 @@ namespace PetShop
                             {
                                 case 1:
                                     Console.Clear();
-                                    Console.WriteLine("Teste");
+                                    AdcionarCliente();
                                     break;
 
                                 case 2:
@@ -126,11 +127,33 @@ namespace PetShop
                 }
 
             } while (FimExecucaoMenu);
-
-            //Console.ReadKey();
-
+  
 
         }
+
+        public void AdcionarCliente()
+        {
+            var clientes = new List<Cliente>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine("Informe o nome do Cliente: ");
+                string nomeCliente = Console.ReadLine();
+
+                Console.WriteLine("Informe o CPF: ");
+                long cpfCliente = Convert.ToInt64(Console.ReadLine());
+
+                Console.WriteLine("Informe a Data de Nascimento: ");
+                DateTime dataDeNascimento = DateTime.Parse(Console.ReadLine());
+           
+                var cliente = new Cliente();
+                cliente.NomeCliente = nomeCliente;
+                cliente.Cpf = cpfCliente;
+                cliente.DataDeNascimento = dataDeNascimento;
+
+                clientes.Add(cliente);
+            }
+        }
     }
-    }
+}
     
