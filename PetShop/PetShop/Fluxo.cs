@@ -9,6 +9,7 @@ namespace PetShop
 {
     public class Fluxo
     {
+        public List<Cliente> clientes = new List<Cliente>();
         public void Executar()
         {
             Menu();
@@ -17,7 +18,7 @@ namespace PetShop
         public void Menu()
         {
             bool FimExecucaoMenu = true;
-           
+            bool FimExecucaoSubMenu = true;
 
             do
             {
@@ -79,10 +80,10 @@ namespace PetShop
 
                                 case 4:
                                     //Console.Clear();
-                                    FimExecucaoMenu = true;
+                                    FimExecucaoSubMenu = false;
                                     //FimExecucaoMenu = false;
 
-                                    break;
+                                    break;                                  
 
                                 default:
                                     //Console.Clear();
@@ -91,25 +92,19 @@ namespace PetShop
                             }
 
                         }
-                        while (FimExecucaoMenu);
+                        while (FimExecucaoSubMenu);
                         break;
 
                     case 2:
 
                         Console.Clear();
-                        Console.WriteLine("#**************************************#");
-                        Console.WriteLine("# #");
-                        Console.WriteLine("# --- MENU CURSO --- #");
-                        Console.WriteLine("# #");
-                        Console.WriteLine("# 1 - Incluir curso #");
-                        Console.WriteLine("# 2 - Alterar curso #");
-                        Console.WriteLine("# 3 - Pesquisar curso #");
-                        Console.WriteLine("# 4 - Excluir curso #");
-                        Console.WriteLine("# 5 - Voltar ao menu principal #");
-                        Console.WriteLine("# #");
-                        Console.WriteLine("#**************************************#");
-                        Console.WriteLine();
-                        Console.Write("Digite sua opcao: ");
+                        foreach(Cliente cliente in clientes)
+                        {
+                            Console.WriteLine(cliente.NomeCliente);
+                            Console.WriteLine(cliente.Cpf);
+                            Console.WriteLine(cliente.DataDeNascimento);
+                            Console.ReadLine();
+                        }
 
                         break;
 
@@ -138,7 +133,6 @@ namespace PetShop
 
         public void AdcionarCliente()
         {
-            var clientes = new List<Cliente>();
 
             for (int i = 0; i < 1; i++)
             {
@@ -153,12 +147,19 @@ namespace PetShop
                     break;
                 }
                     
-
                 Console.WriteLine("Informe o CPF: ");
-                long cpfCliente = Convert.ToInt64(Console.ReadLine());
+                string cpfCliente = Console.ReadLine();
+
+                bool cpfClienteValido = Validacoes.ValidaCpf(cpfCliente);
+
+                if (!cpfClienteValido)
+                {
+
+                    break;
+                }
 
                 Console.WriteLine("Informe a Data de Nascimento: ");
-                DateTime dataDeNascimento = DateTime.Parse(Console.ReadLine());
+                string dataDeNascimento = Console.ReadLine();
            
                 var cliente = new Cliente();
                 cliente.NomeCliente = nomeCliente;

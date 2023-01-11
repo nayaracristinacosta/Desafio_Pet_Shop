@@ -9,7 +9,7 @@ namespace PetShop
     public class Cliente
     {
         public string? NomeCliente { get; set; }
-        public long Cpf { get; set; }
-        public DateTime DataDeNascimento { get; set; }
+        public string Cpf { get; set; }
+        public string DataDeNascimento { get; set; }
     }
 }

@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Pichau\\.nuget\\packages\\": {}
+    "C:\\Users\\NayaraCosta\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pichau\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\PetShop.csproj",
+      "projectUniqueName": "C:\\Users\\NayaraCosta\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\PetShop.csproj",
       "projectName": "PetShop",
-      "projectPath": "C:\\Users\\Pichau\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\PetShop.csproj",
-      "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pichau\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\obj\\",
+      "projectPath": "C:\\Users\\NayaraCosta\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\PetShop.csproj",
+      "packagesPath": "C:\\Users\\NayaraCosta\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\NayaraCosta\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\NayaraCosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
