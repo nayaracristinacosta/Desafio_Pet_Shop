@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PetShop
 {
-    internal class Cliente
+    public class Cliente
     {
+        public string? NomeCliente { get; set; }
+        public int Cpf { get; set; }
+        public DateTime Date { get; set; }
     }
 }
