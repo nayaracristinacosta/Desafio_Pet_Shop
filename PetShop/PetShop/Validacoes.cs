@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,8 +12,8 @@ namespace PetShop
     {
         public static bool ValidaNome(string nome)
         {            
-            string nomeErro = "***ERRO!! CAMPO INVÁLIDO***\nNão é possível incluir nome do cliente com caracteres especiais, números e espaços em branco.\nPressione ENTER para retornar ao menu anterior...";
-            string erroNumeroDeCaracteres = "***ERRO!! CAMPO INVÁLIDO***\nFavor digitar de 3 a 80 caracteres.\nPressione ENTER para retornar ao menu anterior...";
+            string nomeErro = "***CADASTRO NÃO PERMITIDO!***\nNão é possível incluir nome do cliente com caracteres especiais, números e espaços em branco.\nPressione ENTER para retornar ao menu anterior...";
+            string erroNumeroDeCaracteres = "***CADASTRO NÃO PERMITIDO!***\nFavor digitar de 3 a 80 caracteres.\nPressione ENTER para retornar ao menu anterior...";
             
             bool isNumeric = Regex.IsMatch(nome, @"(?i)[^0-9a-záéíóúàèìòùâêîôûãõç\s]");
 
@@ -155,9 +156,55 @@ namespace PetShop
 
         public static void ObterErroCpf()
         {
-            Console.WriteLine("***ERRO!! CPF INVÁLIDO ***");
+            Console.Clear();
+            Console.WriteLine("***CADASTRO NÃO PERMITIDO!***\nCPF INVÁLIDO\nPressione ENTER para retornar ao menu anterior...");
             Console.ReadLine();
         }
 
+
+        public static bool ValidaDataDeNascimento(string dataDeNascimento)
+        {
+            string mensagemDeErroParaData1 = "***CADASTRO NÃO PERMITIDO!***\nVocê tem idade inferior a 16 anos!\nPressione ENTER para retornar ao menu anterior...";
+            string mensagemDeErroParaData2 = "***CADASTRO NÃO PERMITIDO!***\nVocê tem idade superior a 120 anos!\nPressione ENTER para retornar ao menu anterior...";
+            string mensagemDeErroParaData3 = "***CADASTRO NÃO PERMITIDO!***\nFormato da data incorreta, favor seguir o formato de data dd/mm/aaaa.\nPressione ENTER para retornar ao menu anterior...";
+
+            if(dataDeNascimento.Contains('-'))
+            {
+                Console.Clear();
+                Console.WriteLine(mensagemDeErroParaData3);
+                Console.ReadLine();
+                return false;
+            }
+
+            var validaFormatoData = DateTime.TryParse(dataDeNascimento, out _);
+            if (!validaFormatoData)
+            {
+                Console.Clear();
+                Console.WriteLine(mensagemDeErroParaData3);
+                Console.ReadLine();
+                return false;
+            }
+
+            var dataDeNascimentoConvertida = DateTime.Parse(dataDeNascimento, new CultureInfo("en-US"));
+            var calculoData = DateTime.Now.Year - dataDeNascimentoConvertida.Year;
+
+            if (calculoData <= 16)
+            {
+                Console.Clear();
+                Console.WriteLine(mensagemDeErroParaData1);
+                Console.ReadLine();
+                return false;
+            }
+
+            if (calculoData >= 120)
+            {
+                Console.Clear();
+                Console.WriteLine(mensagemDeErroParaData2);
+                Console.ReadLine();
+                return false;
+            }
+
+            return true;
+        }
     }
 }

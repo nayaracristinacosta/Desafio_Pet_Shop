@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -147,7 +148,7 @@ namespace PetShop
                     break;
                 }
                     
-                Console.WriteLine("Informe o CPF: ");
+                Console.WriteLine("Informe o CPF do cliente, favor digitar somente números: ");
                 string cpfCliente = Console.ReadLine();
 
                 bool cpfClienteValido = Validacoes.ValidaCpf(cpfCliente);
@@ -158,9 +159,10 @@ namespace PetShop
                     break;
                 }
 
-                Console.WriteLine("Informe a Data de Nascimento: ");
+                Console.WriteLine("Informe a Data de Nascimento com o formato dd/mm/aaaa: ");
                 string dataDeNascimento = Console.ReadLine();
-           
+                Validacoes.ValidaDataDeNascimento(dataDeNascimento); 
+
                 var cliente = new Cliente();
                 cliente.NomeCliente = nomeCliente;
                 cliente.Cpf = cpfCliente;
