@@ -83,6 +83,7 @@ namespace PetShop
 
                                 case 2:
                                     Console.Clear();
+                                    BuscarClientePorCpf();
                                     break;
 
                                 case 3:
@@ -207,7 +208,6 @@ namespace PetShop
         public void ListarCliente()
         {
             var cliente = _repositorio.Listar();
-
             foreach (var p in cliente)
             {
                 Console.WriteLine($"Nº de registro do Cliente: {p.IdentificadorCliente}\nNome do Cliente: {p.NomeCliente}\nCPF: {p.Cpf}\nData de Nascimento:{p.DataDeNascimento}");
@@ -215,7 +215,44 @@ namespace PetShop
             }
 
             Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
-            Console.ReadKey();
+            Console.ReadLine();
+
+        }
+
+        public void BuscarClientePorCpf()
+        {
+            Console.WriteLine("Informe o CPF do Cliente que você deseja buscar:\nDIGITE APENAS NÚMEROS:");
+            var cpfInformado = Console.ReadLine();
+            var cpfFormatado = FormataCPF(cpfInformado);
+
+
+            var clienteSelecionado = new Cliente();
+            var cliente = _repositorio.Listar();
+            foreach (var c in cliente)
+            {
+                if(c.Cpf == cpfFormatado)
+                {
+                    clienteSelecionado = c;
+
+                }
+
+            }
+
+            if(clienteSelecionado.IdentificadorCliente > 0)
+            {
+                Console.Clear();
+                Console.WriteLine($"Nº de registro do Cliente: {clienteSelecionado.IdentificadorCliente}\nNome do Cliente: {clienteSelecionado.NomeCliente}\nCPF: {clienteSelecionado.Cpf}\nData de Nascimento: {clienteSelecionado.DataDeNascimento}");
+                Console.WriteLine("===============================");
+                Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
+                Console.ReadLine();
+              
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"***ATENÇÃO***\nO CPF {cpfFormatado} não foi encontrado no Sistema!!!\nPressione ENTER para voltar ao menu anterior.");
+                Console.ReadLine();
+            }
 
         }
 
@@ -230,7 +267,6 @@ namespace PetShop
             }
             return response;
         }
-
 
     }
 }
