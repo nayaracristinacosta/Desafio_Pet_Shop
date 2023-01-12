@@ -11,7 +11,15 @@ using System.Threading.Tasks;
 namespace PetShop
 {
     public class ClienteServico
+
     {
+        private readonly Repositorios.ClienteRepositorio _repositorio;
+
+        public ClienteServico()
+        {
+            _repositorio = new Repositorios.ClienteRepositorio();
+        }
+
         public List<Cliente> clientes = new List<Cliente>();
         public void Executar()
         {
@@ -79,17 +87,9 @@ namespace PetShop
 
                                 case 3:
                                     Console.Clear();
-                                    int contCliente = 1;
-                                    foreach (Cliente cliente in clientes)
-                                    {
 
-                                        Console.WriteLine($"Cliente {contCliente}");
-                                        Console.WriteLine(cliente.NomeCliente);
-                                        Console.WriteLine(cliente.Cpf);
-                                        Console.WriteLine(cliente.DataDeNascimento);
-                                        Console.WriteLine("========================");
-                                        contCliente++;
-                                    }
+                                    ListarCliente();
+
                                     Console.ReadLine();
                                     break;
 
@@ -146,6 +146,7 @@ namespace PetShop
 
             do
             {
+
                 Console.WriteLine("Informe o nome do Cliente: ");
                 string nomeCliente = Console.ReadLine();
 
@@ -181,7 +182,7 @@ namespace PetShop
                 cliente.Cpf = padronizarCpf;
                 cliente.DataDeNascimento = dataDeNascimento;
 
-                clientes.Add(cliente);
+                _repositorio.Inserir(cliente);
 
                 Console.Clear();
                 Console.Write("Deseja incluir mais um cliente? \nDIGITE (1-SIM OU 2-NAO):");
@@ -203,7 +204,22 @@ namespace PetShop
 
         }
 
-        public string FormataCPF(string cpf)
+        public void ListarCliente()
+        {
+            var cliente = _repositorio.Listar();
+
+            foreach (var p in cliente)
+            {
+                Console.WriteLine($"Nº de registro do Cliente: {p.IdentificadorCliente}\nNome do Cliente: {p.NomeCliente}\nCPF: {p.Cpf}\nData de Nascimento:{p.DataDeNascimento}");
+                Console.WriteLine("===============================");
+            }
+
+            Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
+            Console.ReadKey();
+
+        }
+
+        private string FormataCPF(string cpf)
         {
             string response = cpf.Trim();
             if (response.Length == 11)
@@ -214,6 +230,8 @@ namespace PetShop
             }
             return response;
         }
+
+
     }
 }
     
