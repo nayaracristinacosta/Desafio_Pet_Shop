@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PetShop.Modelos;
+using PetShop.Utilitarios;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PetShop
 {
-    public class Fluxo
+    public class ClienteServico
     {
         public List<Cliente> clientes = new List<Cliente>();
         public void Executar()
@@ -29,11 +31,9 @@ namespace PetShop
                 Console.WriteLine("#***************PetShop****************#");
                 Console.WriteLine("#**************************************#");
                 Console.WriteLine("# ---------- MENU PRINCIPAL ---------- #");              
-                Console.WriteLine(" 1 - Cadastrar Clientes ");
-                Console.WriteLine(" 2 - Listar Clientes ");
-                Console.WriteLine(" 3 - Buscar um cliente por CPF ");
-                Console.WriteLine(" 4 - Listar os aniversariantes do mês ");
-                Console.WriteLine(" 5 - Sair ");
+                Console.WriteLine(" 1 - Gestão do Cliente");
+                Console.WriteLine(" 2 - Gestão do Pet ");     
+                Console.WriteLine(" 3 - Sair ");
                 Console.WriteLine("#**************************************#");
                 Console.WriteLine(Environment.NewLine);
                 Console.Write("Digite sua opção: ");
@@ -51,12 +51,14 @@ namespace PetShop
                         {
                             Console.Clear();
                             Console.WriteLine("#**************************************#");
-                            Console.WriteLine("# ------------- Clientes ------------- #");
+                            Console.WriteLine("# -------- Gestão do Cliente --------- #");
                             Console.WriteLine("#**************************************#");
                             Console.WriteLine(" 1 - Incluir Cliente ");
-                            Console.WriteLine(" 2 - Alterar Cliente ");
-                            Console.WriteLine(" 3 - Excluir Cliente ");
-                            Console.WriteLine(" 4 - Voltar ao menu principal ");
+                            Console.WriteLine(" 2 - Buscar um cliente por CPF ");
+                            Console.WriteLine(" 3 - Listar Clientes ");
+                            Console.WriteLine(" 4 - Listar os aniversáriantes do mês ");
+                            Console.WriteLine(" 5 - Excluir Cliente ");
+                            Console.WriteLine(" 6 - Voltar ao menu principal ");
                             Console.WriteLine("#**************************************#");
                             Console.WriteLine(Environment.NewLine);
                             Console.Write("Digite sua opção: ");
@@ -77,18 +79,37 @@ namespace PetShop
 
                                 case 3:
                                     Console.Clear();
+                                    int contCliente = 1;
+                                    foreach (Cliente cliente in clientes)
+                                    {
+
+                                        Console.WriteLine($"Cliente {contCliente}");
+                                        Console.WriteLine(cliente.NomeCliente);
+                                        Console.WriteLine(cliente.Cpf);
+                                        Console.WriteLine(cliente.DataDeNascimento);
+                                        Console.WriteLine("========================");
+                                        contCliente++;
+                                    }
+                                    Console.ReadLine();
                                     break;
 
                                 case 4:
-                                    //Console.Clear();
-                                    FimExecucaoSubMenu = false;
-                                    //FimExecucaoMenu = false;
-
+                                    Console.Clear();
                                     break;                                  
+
+                                case 5:
+                                    Console.Clear();
+                                    break;
+
+                                case 6:                                 
+                                    FimExecucaoSubMenu = false;
+                                    
+                                    break;
 
                                 default:
                                     //Console.Clear();
                                     break;
+
 
                             }
 
@@ -99,30 +120,12 @@ namespace PetShop
                     case 2:
 
                         Console.Clear();
-                        int contCliente = 1;
-                        foreach (Cliente cliente in clientes)
-                        {
-                            
-                            Console.WriteLine($"Cliente {contCliente}");
-                            Console.WriteLine(cliente.NomeCliente);
-                            Console.WriteLine(cliente.Cpf);
-                            Console.WriteLine(cliente.DataDeNascimento);
-                            Console.WriteLine("========================");
-                            contCliente++;
-                        }
+                        Console.WriteLine("***EM CONSTRUÇÃO***\nPressione ENTER para voltar ao menu anterior.");
                         Console.ReadLine();
 
                         break;
 
                     case 3:
-                        Console.WriteLine("Teste!!");
-                        break;
-
-                    case 4:
-                        Console.WriteLine("Teste!!");
-                        break;
-
-                    case 5:
                         FimExecucaoMenu = false;
                         break;
 
@@ -181,10 +184,10 @@ namespace PetShop
                 clientes.Add(cliente);
 
                 Console.Clear();
-                Console.WriteLine("Deseja incluir mais um cliente?(SIM OU NAO)");
-                var lerOpcao = Console.ReadLine().ToUpper();
+                Console.Write("Deseja incluir mais um cliente? \nDIGITE (1-SIM OU 2-NAO):");
+                var lerOpcao = int.Parse(Console.ReadLine());
                 
-                if (lerOpcao == "SIM")
+                if (lerOpcao == 1)
                 {
                     sairAdicionarCliente = true;
                 }

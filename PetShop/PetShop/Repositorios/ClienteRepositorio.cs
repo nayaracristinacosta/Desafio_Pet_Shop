@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop
+namespace PetShop.Repositorios
 {
-    public class ServicosClientes
+    internal class ClienteRepositorio
     {
-        public static void AdicionarCliente()
-        {
-
-        }
     }
 }

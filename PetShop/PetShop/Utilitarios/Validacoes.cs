@@ -6,26 +6,26 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace PetShop
+namespace PetShop.Utilitarios
 {
     public static class Validacoes
     {
         public static bool ValidaNome(string nome)
-        {            
+        {
             string nomeErro = "***CADASTRO NÃO PERMITIDO!***\nNão é possível incluir nome do cliente com caracteres especiais, números e espaços em branco.\nPressione ENTER para retornar ao menu anterior...";
             string erroNumeroDeCaracteres = "***CADASTRO NÃO PERMITIDO!***\nFavor digitar de 3 a 80 caracteres.\nPressione ENTER para retornar ao menu anterior...";
-            
+
             bool isNumeric = Regex.IsMatch(nome, @"(?i)[^0-9a-záéíóúàèìòùâêîôûãõç\s]");
 
             if (isNumeric)
             {
-                Console.Clear();       
+                Console.Clear();
                 Console.WriteLine(nomeErro);
                 Console.ReadLine();
                 return false;
             }
 
-            foreach(char c in nome)
+            foreach (char c in nome)
             {
                 if (c >= '0' && c <= '9')
                 {
@@ -36,7 +36,7 @@ namespace PetShop
                 }
             }
 
-            if(nome.Length < 4 || nome.Length >= 80)
+            if (nome.Length < 4 || nome.Length >= 80)
             {
                 Console.Clear();
                 Console.WriteLine(erroNumeroDeCaracteres);
@@ -44,19 +44,19 @@ namespace PetShop
                 return false;
             }
 
-            if(nome == "")
+            if (nome == "")
             {
                 Console.Clear();
                 Console.WriteLine(erroNumeroDeCaracteres);
                 Console.ReadLine();
                 return false;
             }
-              
+
             return true;
         }
         public static bool ValidaCpf(string cpf)
         {
-       
+
             string valor = cpf.Replace(".", "");
 
             valor = valor.Replace("-", "");
@@ -65,7 +65,7 @@ namespace PetShop
             {
                 ObterErroCpf();
                 return false;
-            }    
+            }
 
             bool igual = true;
 
@@ -95,7 +95,7 @@ namespace PetShop
             {
                 numeros[i] = int.Parse(valor[i].ToString());
             }
-              
+
             int soma = 0;
 
             for (int i = 0; i < 9; i++)
@@ -125,9 +125,9 @@ namespace PetShop
             soma = 0;
 
             for (int i = 0; i < 10; i++)
-         
+
                 soma += (11 - i) * numeros[i];
-             
+
             resultado = soma % 11;
 
             if (resultado == 1 || resultado == 0)
@@ -148,7 +148,7 @@ namespace PetShop
                 ObterErroCpf();
                 return false;
             }
-               
+
 
             return true;
 
@@ -168,7 +168,7 @@ namespace PetShop
             string mensagemDeErroParaData2 = "***CADASTRO NÃO PERMITIDO!***\nVocê tem idade superior a 120 anos!\nPressione ENTER para retornar ao menu anterior...";
             string mensagemDeErroParaData3 = "***CADASTRO NÃO PERMITIDO!***\nFormato da data incorreta, favor seguir o formato de data dd/mm/aaaa.\nPressione ENTER para retornar ao menu anterior...";
 
-            if(dataDeNascimento.Contains('-'))
+            if (dataDeNascimento.Contains('-'))
             {
                 Console.Clear();
                 Console.WriteLine(mensagemDeErroParaData3);
