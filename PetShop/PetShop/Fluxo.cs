@@ -99,13 +99,18 @@ namespace PetShop
                     case 2:
 
                         Console.Clear();
-                        foreach(Cliente cliente in clientes)
+                        int contCliente = 1;
+                        foreach (Cliente cliente in clientes)
                         {
+                            
+                            Console.WriteLine($"Cliente {contCliente}");
                             Console.WriteLine(cliente.NomeCliente);
                             Console.WriteLine(cliente.Cpf);
                             Console.WriteLine(cliente.DataDeNascimento);
-                            Console.ReadLine();
+                            Console.WriteLine("========================");
+                            contCliente++;
                         }
+                        Console.ReadLine();
 
                         break;
 
@@ -134,8 +139,9 @@ namespace PetShop
 
         public void AdcionarCliente()
         {
+            bool sairAdicionarCliente = true;
 
-            for (int i = 0; i < 1; i++)
+            do
             {
                 Console.WriteLine("Informe o nome do Cliente: ");
                 string nomeCliente = Console.ReadLine();
@@ -145,9 +151,11 @@ namespace PetShop
                 if (!nomeClienteValido)
                 {
 
-                    break;
+                    return;
                 }
-                    
+
+                var padronizarNomeCliente = nomeCliente.ToUpper();
+
                 Console.WriteLine("Informe o CPF do cliente, favor digitar somente números: ");
                 string cpfCliente = Console.ReadLine();
 
@@ -156,20 +164,52 @@ namespace PetShop
                 if (!cpfClienteValido)
                 {
 
-                    break;
+                    return;
                 }
+
+                string padronizarCpf = FormataCPF(cpfCliente);
 
                 Console.WriteLine("Informe a Data de Nascimento com o formato dd/mm/aaaa: ");
                 string dataDeNascimento = Console.ReadLine();
-                Validacoes.ValidaDataDeNascimento(dataDeNascimento); 
+                Validacoes.ValidaDataDeNascimento(dataDeNascimento);
 
                 var cliente = new Cliente();
-                cliente.NomeCliente = nomeCliente;
-                cliente.Cpf = cpfCliente;
+                cliente.NomeCliente = padronizarNomeCliente;
+                cliente.Cpf = padronizarCpf;
                 cliente.DataDeNascimento = dataDeNascimento;
 
                 clientes.Add(cliente);
+
+                Console.Clear();
+                Console.WriteLine("Deseja incluir mais um cliente?(SIM OU NAO)");
+                var lerOpcao = Console.ReadLine().ToUpper();
+                
+                if (lerOpcao == "SIM")
+                {
+                    sairAdicionarCliente = true;
+                }
+                else
+                {
+                    sairAdicionarCliente = false;
+                }
+
+                
+               
+
+            } while (sairAdicionarCliente);
+
+        }
+
+        public string FormataCPF(string cpf)
+        {
+            string response = cpf.Trim();
+            if (response.Length == 11)
+            {
+                response = response.Insert(9, "-");
+                response = response.Insert(6, ".");
+                response = response.Insert(3, ".");
             }
+            return response;
         }
     }
 }
