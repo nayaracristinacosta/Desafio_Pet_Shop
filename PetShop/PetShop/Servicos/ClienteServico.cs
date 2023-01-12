@@ -77,7 +77,7 @@ namespace PetShop
                             {
                                 case 1:
                                     Console.Clear();
-                                    AdcionarCliente();
+                                    AdicionarCliente();
                                     
                                     break;
 
@@ -96,6 +96,7 @@ namespace PetShop
 
                                 case 4:
                                     Console.Clear();
+                                    ListarAniversariantesDoMes();
                                     break;                                  
 
                                 case 5:
@@ -141,7 +142,7 @@ namespace PetShop
 
         }
 
-        public void AdcionarCliente()
+        public void AdicionarCliente()
         {
             bool sairAdicionarCliente = true;
 
@@ -208,9 +209,9 @@ namespace PetShop
         public void ListarCliente()
         {
             var cliente = _repositorio.Listar();
-            foreach (var p in cliente)
+            foreach (var c in cliente)
             {
-                Console.WriteLine($"Nº de registro do Cliente: {p.IdentificadorCliente}\nNome do Cliente: {p.NomeCliente}\nCPF: {p.Cpf}\nData de Nascimento:{p.DataDeNascimento}");
+                Console.WriteLine($"Nº de registro do Cliente: {c.IdentificadorCliente}\nNome do Cliente: {c.NomeCliente}\nCPF: {c.Cpf}\nData de Nascimento:{c.DataDeNascimento}");
                 Console.WriteLine("===============================");
             }
 
@@ -266,6 +267,44 @@ namespace PetShop
                 response = response.Insert(3, ".");
             }
             return response;
+        }
+
+        public void ListarAniversariantesDoMes()
+        {            
+            var clientesSelecionados = new List<Cliente>();
+            var cliente = _repositorio.Listar();
+            foreach (var c in cliente)
+            {
+                var mesNascimento = DateTime.Parse(c.DataDeNascimento);
+
+                if (mesNascimento.Month == DateTime.Now.Month)
+                {
+                    clientesSelecionados.Add(c);
+                }
+                
+            }
+
+            if (clientesSelecionados.Count > 0)
+            {
+                Console.WriteLine("***Aniversáriantes do Mês***\n");
+                foreach (var c in clientesSelecionados)
+                {
+                    Console.WriteLine($"Nº de registro do Cliente: {c.IdentificadorCliente}\nNome do Cliente: {c.NomeCliente}\nCPF: {c.Cpf}\nData de Nascimento:{c.DataDeNascimento}");
+                    Console.WriteLine("===============================");                                     
+                }
+
+                Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
+                Console.ReadLine();
+                    
+            }
+            else
+            {   
+                Console.Clear();
+                Console.WriteLine("Ainda não há aniversáriantes no mês Atual");
+                Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
+                Console.ReadLine();
+            } 
+            
         }
 
     }
