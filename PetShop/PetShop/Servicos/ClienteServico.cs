@@ -304,7 +304,7 @@ namespace PetShop
 
             if (clientesSelecionados.Count > 0)
             {
-                Console.WriteLine("***Aniversáriantes do Mês***\n");
+                Console.WriteLine("***Aniversariantes do Mês***\n");
                 foreach (var c in clientesSelecionados)
                 {
                     Console.WriteLine($"Nº de registro do Cliente: {c.IdentificadorCliente}\nNome do Cliente: {c.NomeCliente}\nCPF: {c.Cpf}\nData de Nascimento:{c.DataDeNascimento}");
@@ -318,7 +318,7 @@ namespace PetShop
             else
             {   
                 Console.Clear();
-                Console.WriteLine("Ainda não há aniversáriantes no mês Atual");
+                Console.WriteLine("Ainda não há aniversariantes no mês Atual");
                 Console.WriteLine("\nDigite ENTER para voltar ao menu anterior...");
                 Console.ReadLine();
             } 
