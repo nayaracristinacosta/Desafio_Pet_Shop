@@ -33,18 +33,11 @@ namespace PetShop.Repositorios
             CarregarClientes();
             return ListagemClientes;
         }
-        public bool SeExiste(int identificadorCliente)
+        public bool SeExiste(string cpfCliente)
         {
             CarregarClientes();
-            return ListagemClientes.Any(x => x.IdentificadorCliente == identificadorCliente);
+            return ListagemClientes.Any(x => x.Cpf == cpfCliente);
 
-            //foreach (var x in ListagemClientes)
-            //{
-            //    if(x.IdentificadorCliente == identificadorCliente)
-            //        return true;
-            //}
-
-            //return false;
         }
         public void Atualizar(Cliente Cliente)
         {
@@ -58,6 +51,14 @@ namespace PetShop.Repositorios
         {
             CarregarClientes();
             var posicao = ListagemClientes.FindIndex(x => x.IdentificadorCliente == identificadorCliente);
+            ListagemClientes.RemoveAt(posicao);
+            RegravarClientes(ListagemClientes);
+        }
+
+        public void RemoverPorCpf(string cpfCliente)
+        {
+            CarregarClientes();
+            var posicao = ListagemClientes.FindIndex(x => x.Cpf == cpfCliente);
             ListagemClientes.RemoveAt(posicao);
             RegravarClientes(ListagemClientes);
         }

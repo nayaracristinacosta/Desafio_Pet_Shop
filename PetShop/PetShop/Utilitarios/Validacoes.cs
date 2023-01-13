@@ -54,6 +54,7 @@ namespace PetShop.Utilitarios
 
             return true;
         }
+
         public static bool ValidaCpf(string cpf)
         {
 
@@ -161,7 +162,6 @@ namespace PetShop.Utilitarios
             Console.ReadLine();
         }
 
-
         public static bool ValidaDataDeNascimento(string dataDeNascimento)
         {
             string mensagemDeErroParaData1 = "***CADASTRO NÃO PERMITIDO!***\nVocê tem idade inferior a 16 anos!\nPressione ENTER para retornar ao menu anterior...";
@@ -185,7 +185,7 @@ namespace PetShop.Utilitarios
                 return false;
             }
 
-            var dataDeNascimentoConvertida = DateTime.Parse(dataDeNascimento, new CultureInfo("en-US"));
+            var dataDeNascimentoConvertida = DateTime.Parse(dataDeNascimento);
             var calculoData = DateTime.Now.Year - dataDeNascimentoConvertida.Year;
 
             if (calculoData <= 16)
@@ -206,5 +206,6 @@ namespace PetShop.Utilitarios
 
             return true;
         }
+
     }
 }

@@ -2,10 +2,12 @@
 using PetShop.Utilitarios;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PetShop
@@ -70,10 +72,11 @@ namespace PetShop
                             Console.WriteLine("#**************************************#");
                             Console.WriteLine(Environment.NewLine);
                             Console.Write("Digite sua opção: ");
+                           
+                  
+                            var opcaoValidada = int. Parse(Console.ReadLine());
 
-                            int opcaoMenuCliente = int.Parse(Console.ReadLine());
-
-                            switch (opcaoMenuCliente)
+                            switch (opcaoValidada)
                             {
                                 case 1:
                                     Console.Clear();
@@ -88,10 +91,7 @@ namespace PetShop
 
                                 case 3:
                                     Console.Clear();
-
-                                    ListarCliente();
-
-                                    Console.ReadLine();
+                                    ListarCliente();                                  
                                     break;
 
                                 case 4:
@@ -101,15 +101,17 @@ namespace PetShop
 
                                 case 5:
                                     Console.Clear();
+                                    RemoverCliente();
                                     break;
 
                                 case 6:                                 
-                                    FimExecucaoSubMenu = false;
-                                    
+                                    FimExecucaoSubMenu = false;                                   
                                     break;
 
                                 default:
-                                    //Console.Clear();
+                                    Console.Clear();
+                                    Console.WriteLine("***ATENÇÃO***\nOpção Inválida\nFavor informar uma opção Válida!!!\nPressione ENTER para voltar ao menu anterior...");
+                                    Console.ReadLine();
                                     break;
 
 
@@ -122,7 +124,7 @@ namespace PetShop
                     case 2:
 
                         Console.Clear();
-                        Console.WriteLine("***EM CONSTRUÇÃO***\nPressione ENTER para voltar ao menu anterior.");
+                        Console.WriteLine("***EM CONSTRUÇÃO***\nPressione ENTER para voltar ao menu anterior...");
                         Console.ReadLine();
 
                         break;
@@ -148,7 +150,6 @@ namespace PetShop
 
             do
             {
-
                 Console.WriteLine("Informe o nome do Cliente: ");
                 string nomeCliente = Console.ReadLine();
 
@@ -165,6 +166,19 @@ namespace PetShop
                 Console.WriteLine("Informe o CPF do cliente, favor digitar somente números: ");
                 string cpfCliente = Console.ReadLine();
 
+                string padronizarCpf = FormataCPF(cpfCliente);
+
+                bool validaCpf = _repositorio.SeExiste(padronizarCpf);
+
+                if(validaCpf)
+                {
+                    Console.Clear();
+                    Console.WriteLine("***ATENÇÃO***\nNão é possível cadastrar um CPF já ativo no sistema!!!\nPressione ENTER para voltar ao menu anterior...");
+                    Console.ReadLine();
+                    return;
+                    
+                }
+
                 bool cpfClienteValido = Validacoes.ValidaCpf(cpfCliente);
 
                 if (!cpfClienteValido)
@@ -172,12 +186,16 @@ namespace PetShop
 
                     return;
                 }
-
-                string padronizarCpf = FormataCPF(cpfCliente);
-
+           
                 Console.WriteLine("Informe a Data de Nascimento com o formato dd/mm/aaaa: ");
                 string dataDeNascimento = Console.ReadLine();
-                Validacoes.ValidaDataDeNascimento(dataDeNascimento);
+                bool dataDeNascimentoValido = Validacoes.ValidaDataDeNascimento(dataDeNascimento);
+
+                if (!dataDeNascimentoValido)
+                {
+
+                    return;
+                }
 
                 var cliente = new Cliente();
                 cliente.NomeCliente = padronizarNomeCliente;
@@ -251,7 +269,7 @@ namespace PetShop
             else
             {
                 Console.Clear();
-                Console.WriteLine($"***ATENÇÃO***\nO CPF {cpfFormatado} não foi encontrado no Sistema!!!\nPressione ENTER para voltar ao menu anterior.");
+                Console.WriteLine($"***ATENÇÃO***\nO CPF {cpfFormatado} não foi encontrado no Sistema!!!\nTente Novamente...\nPressione ENTER para voltar ao menu anterior...");
                 Console.ReadLine();
             }
 
@@ -306,6 +324,32 @@ namespace PetShop
             } 
             
         }
+
+        public void RemoverCliente()
+        {
+            Console.WriteLine("Por favor forneça o CPF do Cliente para excluir do sistema:");
+            var cpfCliente = Console.ReadLine();
+            
+            string cpfConvertido = FormataCPF(cpfCliente);
+            
+
+            if (!_repositorio.SeExiste(cpfConvertido))
+            {
+                Console.Clear();
+                Console.WriteLine("***ATENÇÃO***\nEste CPF não existe no sistema... Tente novamente...\nPressione ENTER para voltar ao menu anterior...");
+                Console.ReadLine();
+            }
+            else          
+            {
+                _repositorio.RemoverPorCpf(cpfConvertido);
+                Console.Clear();
+                Console.WriteLine("***Cliente excluido com sucesso***\nPressione ENTER para voltar ao menu anterior...");
+                Console.ReadLine();
+            }
+
+            return;
+        }
+
 
     }
 }
