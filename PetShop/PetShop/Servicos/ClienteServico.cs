@@ -74,48 +74,65 @@ namespace PetShop
                             Console.Write("Digite sua opção: ");
                            
                   
-                            var opcaoValidada = int. Parse(Console.ReadLine());
+                            var opcaoValidada = int.Parse(Console.ReadLine());
 
-                            switch (opcaoValidada)
+                            try
                             {
-                                case 1:
-                                    Console.Clear();
-                                    AdicionarCliente();
-                                    
-                                    break;
+                                switch (opcaoValidada)
+                                {
+                                    case 1:
+                                        Console.Clear();
+                                        AdicionarCliente();
 
-                                case 2:
-                                    Console.Clear();
-                                    BuscarClientePorCpf();
-                                    break;
+                                        break;
 
-                                case 3:
-                                    Console.Clear();
-                                    ListarCliente();                                  
-                                    break;
+                                    case 2:
+                                        Console.Clear();
+                                        BuscarClientePorCpf();
+                                        break;
 
-                                case 4:
-                                    Console.Clear();
-                                    ListarAniversariantesDoMes();
-                                    break;                                  
+                                    case 3:
+                                        Console.Clear();
+                                        ListarCliente();
+                                        break;
 
-                                case 5:
-                                    Console.Clear();
-                                    RemoverCliente();
-                                    break;
+                                    case 4:
+                                        Console.Clear();
+                                        ListarAniversariantesDoMes();
+                                        break;
 
-                                case 6:                                 
-                                    FimExecucaoSubMenu = false;                                   
-                                    break;
+                                    case 5:
+                                        Console.Clear();
+                                        RemoverCliente();
+                                        break;
 
-                                default:
-                                    Console.Clear();
-                                    Console.WriteLine("***ATENÇÃO***\nOpção Inválida\nFavor informar uma opção Válida!!!\nPressione ENTER para voltar ao menu anterior...");
-                                    Console.ReadLine();
-                                    break;
+                                    case 6:
+                                        FimExecucaoSubMenu = false;
+                                        break;
+
+                                    default:
+                                        Console.Clear();
+                                        Console.WriteLine("***ATENÇÃO***\nOpção Inválida\nFavor informar uma opção Válida!!!\nPressione ENTER para voltar ao menu anterior...");
+                                        Console.ReadLine();
+                                        break;
 
 
+                                }
                             }
+                            catch (InvalidOperationException ex)
+                            {
+                                Console.Clear();
+                                Console.WriteLine(ex.Message);
+                                Console.WriteLine("Pressione uma tecla para continuar!");
+                                Console.ReadKey();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("Ocorreu um erro fatal no programa, veja a mensagem do erro e contate o administrador: " + ex.Message);
+                                Console.WriteLine("Pressione uma tecla para continuar!");
+                                Console.ReadKey();
+                            }
+
 
                         }
                         while (FimExecucaoSubMenu);
@@ -204,10 +221,11 @@ namespace PetShop
 
                 _repositorio.Inserir(cliente);
 
-                Console.Clear();
+                //Console.Clear();
                 Console.Write("Deseja incluir mais um cliente? \nDIGITE (1-SIM OU 2-NAO):");
                 var lerOpcao = int.Parse(Console.ReadLine());
-                
+                Console.Clear();
+
                 if (lerOpcao == 1)
                 {
                     sairAdicionarCliente = true;
