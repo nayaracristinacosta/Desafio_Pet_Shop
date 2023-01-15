@@ -9,7 +9,7 @@ namespace PetShop.Repositorios
 {
     internal class ClienteRepositorio
     {
-        private readonly string _caminhoBase = "C:\\Users\\NayaraCosta\\Desktop\\Desafio_Pet_Shop\\PetShop\\PetShop\\Arquivo\\Cliente.csv";
+        private readonly string _caminhoBase = "C:\\Desafio_PetShop\\Cliente.csv";
         private List<Cliente> ListagemClientes = new List<Cliente>();
         public ClienteRepositorio()
         {
